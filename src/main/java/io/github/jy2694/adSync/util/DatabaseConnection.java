@@ -78,6 +78,8 @@ public class DatabaseConnection {
     }
 
     public PreemptResult preemptObject(String entityId, String key){
+        UUID uuid = preempted.get(entityId + ":" + key);
+        if(uuid != null) return PreemptResult.PREEMPTED;
         Message message = new Message(MessageType.PRE_PREEMPTIVE, entityId, key);
         Queue<UUID> queue = entityPreemptiveQueue.computeIfAbsent(entityId+":"+key, k -> new LinkedList<>());
         queue.offer(message.getMessageId());
