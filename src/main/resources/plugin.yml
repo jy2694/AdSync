@@ -1,0 +1,4 @@
+name: AdSync
+version: '1.0-SNAPSHOT'
+main: io.github.jy2694.adSync.AdSync
+api-version: '1.20'

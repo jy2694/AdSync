@@ -1,0 +1,5 @@
+# Fill in your Redis connection information.
+database:
+  host: 'localhost'
+  port: 8192
+  password: ''
