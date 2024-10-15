@@ -44,7 +44,7 @@ public final class AdSync extends JavaPlugin {
             databaseConnection.disconnect();
     }
 
-    public long getWaitTimeout(){
+    public int getWaitTimeout(){
         return pluginConfiguration.getWaitTimeout();
     }
 }

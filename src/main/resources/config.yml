@@ -3,6 +3,6 @@ database:
   host: 'localhost'
   port: 6379
   password: ''
-# Wait timeout
+# Wait timeout(seconds)
 # If set to 0, no wait timeout is applied (unlimited wait).
-preempt-wait-timeout: 30
+preemption-wait-timeout: 30

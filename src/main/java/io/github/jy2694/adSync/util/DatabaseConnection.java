@@ -116,6 +116,17 @@ public class DatabaseConnection {
     }
 
     /**
+     * Load object from database.
+     * @param entityClass class of the object to load
+     * @param key key(object identifier)
+     * @return loaded object
+     * @throws NotPreemptedException if object is not preempted
+     */
+    public <T> T loadObject(Class<T> entityClass, String key) throws NotPreemptedException {
+        return entityClass.cast(loadObject(entityClass.getName(), key));
+    }
+
+    /**
      * Store object to database.
      * @param entityId entity id(entity identifier)
      * @param key key(object identifier)
@@ -130,6 +141,16 @@ public class DatabaseConnection {
         Bukkit.getPluginManager().callEvent(new ObjectStoredEvent(entityId, key, object));
     }
 
+    /**
+     * Store object to database
+     * @param entityClass class of the object to store
+     * @param key key(object identifier)
+     * @param object object to store
+     * @throws NotPreemptedException if object is not preempted
+     */
+    public <T> void storeObject(Class<T> entityClass, String key, T object) throws NotPreemptedException {
+        storeObject(entityClass.getName(), key, object);
+    }
     /**
      * Object preemption methods. If it is already preempted, it will be placed in the preemption queue with the enqueue
      * @param entityId entity id(entity identifier)
@@ -156,6 +177,16 @@ public class DatabaseConnection {
     }
 
     /**
+     * Object preemption methods. If it is already preempted, it will be placed in the preemption queue with the enqueue
+     * @param entityClass class of the object to preempt
+     * @param key key(object identifier)
+     * @return null if immediately preempted or already preempted, or Message ID if waiting to be preempted.
+     */
+    public synchronized <T> UUID preemptObject(Class<T> entityClass, String key){
+        return preemptObject(entityClass.getName(), key);
+    }
+
+    /**
      * Release object method . If it is waiting, remove it from the preemptive queue.
      * @param messageId The message ID that preempted the object or the message ID that is waiting for it
      * @param entityId entity id(entity identifier)
@@ -173,6 +204,15 @@ public class DatabaseConnection {
     }
 
     /**
+     * Release object method . If it is waiting, remove it from the preemptive queue.
+     * @param messageId The message ID that preempted the object or the message ID that is waiting for it
+     * @param entityClass class of the object to release
+     * @param key key(object identifier)
+     */
+    public void releaseObject(UUID messageId, Class<?> entityClass, String key){
+        releaseObject(messageId, entityClass.getName(), key);
+    }
+    /**
      * Release object method. If not preempted, not working
      * @param entityId entity id(entity identifier)
      * @param key key(object identifier)
@@ -181,6 +221,22 @@ public class DatabaseConnection {
         UUID uuid = preempted.get(entityId + ":" + key);
         if(uuid == null) return;
         releaseObject(uuid, entityId, key);
+    }
+
+    /**
+     * Release object method. If not preempted, not working
+     * @param entityClass class of the object to release
+     * @param key key(object identifier)
+     */
+    public synchronized void releaseObject(Class<?> entityClass, String key){
+        releaseObject(entityClass.getName(), key);
+    }
+
+    /**
+     * Release all objects method. If preempt wait message exists, it will be released.
+     */
+    public void releaseAllObjects(){
+        //TODO - release all
     }
 
     /**

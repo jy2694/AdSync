@@ -8,7 +8,7 @@ public class PluginConfiguration extends AbstractConfiguration{
     private String host;
     private int port;
     private String password;
-    private long waitTimeout;
+    private int waitTimeout;
     
     public PluginConfiguration() {
         super("config.yml");
@@ -19,7 +19,7 @@ public class PluginConfiguration extends AbstractConfiguration{
         host = config.getString("database.host", "localhost");
         port = config.getInt("database.port", 6379);
         password = config.getString("database.password", "");
-        waitTimeout = config.getLong("wait-timeout", 600L);
+        waitTimeout = config.getInt("preemption-wait-timeout", 30);
     }
 
 }
