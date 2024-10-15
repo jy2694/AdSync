@@ -19,7 +19,7 @@ because objects are auto-serialized when saved and auto-deserialized when loaded
 # Fill in your Redis connection information.
 database:
   host: 'localhost'
-  port: 8192
+  port: 6379
   password: ''
 # Wait timeout
 # Maximum time to wait if another server is already preempted
@@ -76,7 +76,18 @@ Transaction transaction = Transaction.load().addRequireEntity("player_data", pla
 transaction.queue();
 ```
 
-Create and queue a transaction as above.
+Create and queue a transaction as above. 
+
+And when the transaction completes, you'll get the loaded object as shown below.
+```java
+@EventHandler
+public void onTransactionCompleted(TransactionCompletedEvent event){
+    Transaction transaction = event.getTransaction();
+    if(transaction instanceof LoadTransaction loadTransaction){
+        PlayerData playerData = (PlayerData) loadTransaction.getLoadedObject("player_data", "40142c3f-4bf0-4d3e-93a8-0389ba53c08d");
+    }
+}
+```
 
 #### Storing
 
