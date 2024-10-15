@@ -8,6 +8,7 @@ only one data will be reflected and the other will be overwritten.
 To prevent this from happening, we provide object access locking to allow loading 
 and saving only on servers that have preempted object permissions. This is convenient 
 because objects are auto-serialized when saved and auto-deserialized when loaded.
+
 ---
 ## Initialization
 
