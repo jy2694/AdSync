@@ -1,5 +1,6 @@
 # AdSync
 ![](https://img.shields.io/badge/Paper-1.20+-blue?style=flat-square)
+![](https://img.shields.io/badge/OpenJDK-17+-red?style=flat-square)
 
 This plugin was developed for data sharing between servers connected by Velocity. 
 When you need to use common data, it puts it in a database to manage it. 
