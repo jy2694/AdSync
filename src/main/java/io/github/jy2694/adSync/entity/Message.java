@@ -1,12 +1,15 @@
 package io.github.jy2694.adSync.entity;
 
+import lombok.Getter;
+
 import java.util.UUID;
 
+@Getter
 public class Message {
-    private UUID messageId;
-    private MessageType type;
-    private String entityId;
-    private String key;
+    private final UUID messageId;
+    private final MessageType type;
+    private final String entityId;
+    private final String key;
 
     public Message(UUID messageId, MessageType type, String entityId, String key) {
         this.messageId = messageId;
@@ -22,19 +25,4 @@ public class Message {
         this.key = key;
     }
 
-    public UUID getMessageId() {
-        return messageId;
-    }
-
-    public MessageType getType() {
-        return type;
-    }
-
-    public String getEntityId() {
-        return entityId;
-    }
-
-    public String getKey() {
-        return key;
-    }
 }
